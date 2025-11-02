@@ -109,3 +109,116 @@ exports.translateText = async (req, res) => {
     res.status(500).json({ error: errorMessage });
   }
 };
+
+
+// const axios = require("axios");
+// const fs = require("fs");
+// const path = require("path");
+// const natural = require("natural");
+
+// // NLP setup
+// const tokenizer = new natural.WordTokenizer();
+// const sentimentAnalyzer = new natural.SentimentAnalyzer("English", natural.PorterStemmer, "afinn");
+
+// // Feedback memory file
+// const feedbackFilePath = path.join(__dirname, "feedback.json");
+
+// // Load feedback memory or initialize
+// const loadFeedbackMemory = () => {
+//   try {
+//     const data = fs.readFileSync(feedbackFilePath, "utf-8");
+//     return JSON.parse(data);
+//   } catch {
+//     return {};
+//   }
+// };
+
+// // Save feedback memory
+// const saveFeedbackMemory = (memory) => {
+//   fs.writeFileSync(feedbackFilePath, JSON.stringify(memory, null, 2));
+// };
+
+// exports.translateText = async (req, res) => {
+//   const { text, from, to, userFeedback } = req.body;
+
+//   // Validate inputs
+//   if (!text || !from || !to) {
+//     return res.status(400).json({ error: "Missing parameters: text, from, and to are required" });
+//   }
+
+//   const validLanguages = [
+//     "en", "hi", "bn", "gu", "ta", "te", "ml", "mr", "pa", "as", "or",
+//     "kn", "ur", "ne", "si", "ma", "bo", "ks", "sd", "sa", "tl"
+//   ];
+//   if (!validLanguages.includes(from) || !validLanguages.includes(to)) {
+//     return res.status(400).json({ error: "Invalid language code" });
+//   }
+
+//   try {
+//     // Preprocessing: Tokenize and analyze sentiment
+//     console.log("AI preprocessing...");
+//     const tokens = tokenizer.tokenize(text);
+//     const sentimentScore = sentimentAnalyzer.getSentiment(tokens);
+//     const sentiment = sentimentScore > 0 ? "positive" : sentimentScore < 0 ? "negative" : "neutral";
+
+//     // ✅ Galileo API call for translation
+//     const response = await axios.post(
+//       "https://api.galileo.ai/v1/translate", // <-- replace with actual Galileo endpoint
+//       {
+//         text,
+//         source_lang: from,
+//         target_lang: to
+//       },
+//       {
+//         headers: {
+//           "Content-Type": "application/json",
+//           "Authorization": `Bearer ${process.env.GALILEO_API_KEY}` // store your API key in .env
+//         }
+//       }
+//     );
+
+//     let translatedText = response.data.translated_text || response.data.translation;
+
+//     // RL-based translation selection (memory)
+//     const feedbackMemory = loadFeedbackMemory();
+//     const stateKey = `${text}:${from}:${to}`;
+//     let selectedTranslation = translatedText;
+
+//     const translationKey = `${stateKey}:${selectedTranslation}`;
+//     const pastReward = feedbackMemory[translationKey]?.reward || 0;
+//     if (pastReward > 0) {
+//       selectedTranslation = feedbackMemory[translationKey].translatedText;
+//     }
+
+//     // Postprocessing: Enhance output based on sentiment
+//     let enhancedText = selectedTranslation;
+//     if (sentiment === "positive") {
+//       enhancedText = `${selectedTranslation}`;
+//     } else if (sentiment === "negative") {
+//       enhancedText = `⚠️ ${selectedTranslation}`;
+//     }
+
+//     // Save feedback if provided
+//     if (userFeedback) {
+//       feedbackMemory[translationKey] = {
+//         inputText: text,
+//         sentiment,
+//         userFeedback,
+//         reward: userFeedback === "positive" ? 1 : userFeedback === "negative" ? -1 : 0,
+//         translatedText: selectedTranslation
+//       };
+//       saveFeedbackMemory(feedbackMemory);
+//     }
+
+//     res.json({
+//       translatedText: enhancedText,
+//       aiSentiment: sentiment,
+//       reinforcementUsed: !!userFeedback
+//     });
+
+//   } catch (error) {
+//     console.error(error);
+//     const errorMessage = error.response?.data?.error || error.message || "Translation failed";
+//     res.status(500).json({ error: errorMessage });
+//   }
+// };
