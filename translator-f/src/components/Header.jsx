@@ -65,7 +65,7 @@ const Header = () => {
               </div>
               <div>
                 <h1 className="text-xl sm:text-2xl lg:text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent dark:from-purple-400 dark:to-indigo-400 flex items-center gap-2">
-                  PolyglotPro <span className="text-yellow-600 dark:text-yellow-300 animate-pulse">✨</span>
+                  TalkFlow <span className="text-yellow-600 dark:text-yellow-300 animate-pulse">✨</span>
                 </h1>
                 <p className="text-xs sm:text-sm lg:text-sm font-medium text-gray-600 dark:text-gray-300">Smart translation with AI power</p>
               </div>

@@ -106,7 +106,7 @@ const SignUp = ({ onClose }) => {
           </svg>
         </div>
         <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 dark:from-purple-500 dark:via-indigo-500 dark:to-blue-500 bg-clip-text text-transparent">
-          Join PolyglotPro
+          Join TalkFlow
         </h2>
         <p className="text-lg text-gray-600 dark:text-gray-300">
           Create your free premium account in seconds

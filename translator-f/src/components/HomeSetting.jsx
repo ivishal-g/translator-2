@@ -204,7 +204,7 @@ const HomeSetting = ({ isOpen, onClose }) => {
               <path d="M6 18a4 4 0 0 1-1.967-.516" />
               <path d="M19.967 17.484A4 4 0 0 1 18 18" />
             </svg>
-            PolyglotPro Settings
+            TalkFlow Settings
           </h2>
           <p className="text-xs text-gray-600 dark:text-gray-400 sm:text-sm">Customize your translation experience</p>
         </div>

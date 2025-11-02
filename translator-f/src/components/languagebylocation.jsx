@@ -61,7 +61,7 @@ export const useGeolocation = (setTo, setDetectedLanguage) => {
             `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`,
             {
               headers: {
-                "User-Agent": "PolyglotPro/1.0 (contact@yourapp.com)", // Replace with your app's details
+                "User-Agent": "TalkFlow/1.0 (contact@yourapp.com)", // Replace with your app's details
               },
             }
           );
